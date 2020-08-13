@@ -38,7 +38,7 @@ Pomodoro: {} min | Descanso: {} min | Ciclos: {}""".format(int(custom[0]),int(cu
             if i != c:
                 print("Ciclo {} Concluído! Ciclos restantes: {}".format(i,c-i))
             else:
-                print("Timer Concluído!")
+                print("\nTimer Concluído! Agora hidrate-se e coma algo bem gostoso")
         break
     else:
         print("Opção inválida. Digite novamente.")

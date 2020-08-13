@@ -9,7 +9,7 @@ def timer_setting():
     cb_lista = ['5', '10', '15', '20','25','30'] 
 
     while True:
-        print("Escolha o tempo de POMODORO: ", cp_lista)
+        print("Escolha o tempo de POMODORO:", ', '.join(cp_lista))
         cp = input()
         if cp in cp_lista:
             break
@@ -17,7 +17,7 @@ def timer_setting():
             print("Opção inválida. Por favor, digite novamente.")
         
     while True:    
-        print("Escolha o tempo de DESCANSO: ", cb_lista)        
+        print("Escolha o tempo de DESCANSO:", ', '.join(cb_lista))        
         cb = input()
         if cb in cb_lista and int(cb)<=int(cp):
             break
