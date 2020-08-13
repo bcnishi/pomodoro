@@ -11,7 +11,7 @@ print("""
 
 #Default setting
 p = ['POMODORO',2] #pomodoro
-b = ['DESCANSO',1] #break
+b = ['DESCANSO',2] #break
 
 while True:
     choice = input("\nDigite a opção desejada: ")

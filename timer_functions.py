@@ -1,5 +1,7 @@
 import time
 import msvcrt
+import tkinter
+from tkinter import messagebox
 
 def timer_setting():
 
@@ -76,10 +78,15 @@ def run_timer(t):
     time.sleep(1)
     for m in range(t[1]-1,-1,-1): #minutes loop
         for s in range(59,-1,-1): #seconds loop
-            if m == 3 and s == 0: #Notification at 3 min left to timer ends
-                localtime = time.localtime()
-                clock = time.strftime("%I:%M:%S", localtime) #Shows current time
-                print("Faltam 3 minutos para terminar o {} (Hora: {})\n".format(t[0],clock))
+            if t[0] == 'DESCANSO':
+                if m == 1 and s == 0: #Notification at 1 min left to timer ends
+                    localtime = time.localtime()
+                    clock = time.strftime("%I:%M:%S", localtime) #Shows current time
+                    root = tkinter.Tk()
+                    root.withdraw()
+                    messagebox.showinfo("Seu {} irá acabar em 1 min! (Hora: {})".format(t[0],clock),
+                    "\nAproveite para beber água ou ir ao banheiro!")
+                    #print("Falta 1 minuto para terminar o {} (Hora: {})\n".format(t[0],clock))
             print("    {:02d}:{:02d}".format(m,s), end="\r")
             time.sleep(1)
             if msvcrt.kbhit(): #Invoke pause function when 'Enter' is pressed
