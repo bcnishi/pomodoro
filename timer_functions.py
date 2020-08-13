@@ -1,5 +1,7 @@
 import time
 import msvcrt
+#import tkinter
+#from tkinter import messagebox
 
 def timer_setting():
 
@@ -7,7 +9,7 @@ def timer_setting():
     cb_lista = ['5', '10', '15', '20','25','30'] 
 
     while True:
-        print("Escolha o tempo de pomodoro: ", cp_lista)
+        print("Escolha o tempo de POMODORO: ", cp_lista)
         cp = input()
         if cp in cp_lista:
             break
@@ -15,12 +17,12 @@ def timer_setting():
             print("Opção inválida. Por favor, digite novamente.")
         
     while True:    
-        print("Escolha o tempo de descanso: ", cb_lista)        
+        print("Escolha o tempo de DESCANSO: ", cb_lista)        
         cb = input()
         if cb in cb_lista and int(cb)<=int(cp):
             break
         elif cb in cb_lista and int(cb)>int(cp):
-            print("O tempo de descanso deve ser menor ou igual ao tempo de pomodoro. Escolha novamente.")
+            print("O tempo de DESCANSO deve ser menor ou igual ao tempo de POMODORO. Escolha novamente.")
         else:
             print("Opção inválida. Por favor, digite novamente.")
     return [cp,cb]
@@ -42,10 +44,12 @@ def start_timer(p,b):
     try: 
         run_timer(p)       
     except KeyboardInterrupt: #Ends the timer when CTRL+C is pressed
+        print("\a") #Sound Alert (Need to test if works on macOS)
         pass
     try: 
         run_timer(b)
-    except KeyboardInterrupt: #Ends the timer when CTRL+C is pressed    
+    except KeyboardInterrupt: #Ends the timer when CTRL+C is pressed
+        print("\a") #Sound Alert (Need to test if works on macOS)    
         pass
 
 def pause():
@@ -68,7 +72,12 @@ def run_timer(t):
     =  Concluir pomodoro/descanso (Crtl+C) =
     =                                      =
     ========================================""")
-    print('\nAperte "Enter" para iniciar o {}.\n'.format(t[0]),end="\r")
+    if t[0] == 'POMODORO':
+        print("""\nDesconecte-se das redes sociais e concentre-se! 
+Quando estiver pronto(a), aperte \"Enter\" para iniciar o POMODORO.\n""",end="\r")
+    else:
+        print("""\nO POMODORO acabou! Vamos descansar um pouco antes de continuar?  
+Para iniciar o DESCANSO, aperte \"Enter\".\n""",end="\r")
     while ord(msvcrt.getch()) != 13:
         continue
     print("\n   {}".format(t[0]))
@@ -76,10 +85,16 @@ def run_timer(t):
     time.sleep(1)
     for m in range(t[1]-1,-1,-1): #minutes loop
         for s in range(59,-1,-1): #seconds loop
-            if m == 3 and s == 0: #Notification at 3 min left to timer ends
-                localtime = time.localtime()
-                clock = time.strftime("%I:%M:%S", localtime) #Shows current time
-                print("Faltam 3 minutos para terminar o {} (Hora: {})\n".format(t[0],clock))
+            if t[0] == 'DESCANSO':
+                if m == 1 and s == 0: #Notification at 1 min left to timer ends
+                    localtime = time.localtime()
+                    clock = time.strftime("%I:%M:%S", localtime) #Shows current time
+                    #root = tkinter.Tk()
+                    #root.withdraw()
+                    #messagebox.showinfo("Seu DESCANSO irá acabar em 1 min! (Hora: {})".format(clock),
+                    #"\nAproveite para beber água ou ir ao banheiro!")
+                    print("Seu DESCANSO irá acabar em 1 min! (Hora: {})".format(clock))
+                    print("Aproveite para beber água ou ir ao banheiro!")
             print("    {:02d}:{:02d}".format(m,s), end="\r")
             time.sleep(1)
             if msvcrt.kbhit(): #Invoke pause function when 'Enter' is pressed
