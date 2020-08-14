@@ -1,7 +1,5 @@
 import time
 import msvcrt
-#import tkinter
-#from tkinter import messagebox
 
 def timer_setting():
 
@@ -89,10 +87,6 @@ Para iniciar o DESCANSO, aperte \"Enter\".\n""",end="\r")
                 if m == 1 and s == 0: #Notification at 1 min left to timer ends
                     localtime = time.localtime()
                     clock = time.strftime("%I:%M:%S", localtime) #Shows current time
-                    #root = tkinter.Tk()
-                    #root.withdraw()
-                    #messagebox.showinfo("Seu DESCANSO irá acabar em 1 min! (Hora: {})".format(clock),
-                    #"\nAproveite para beber água ou ir ao banheiro!")
                     print("Seu DESCANSO irá acabar em 1 min! (Hora: {})".format(clock))
                     print("Aproveite para beber água ou ir ao banheiro!")
             print("    {:02d}:{:02d}".format(m,s), end="\r")

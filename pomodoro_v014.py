@@ -24,7 +24,7 @@ Pomodoro: 25 min | Descanso: 5 min | Ciclos: {}""".format(c))
             if i != c:
                 print("Ciclo {} Concluído! Ciclos restantes: {}".format(i,c-i))
             else:
-                print("Timer Concluído!")
+                print("Timer Concluído! Agora hidrate-se e coma algo bem gostoso!")
         break
     elif choice == '2':
         custom = tf.timer_setting()
@@ -38,7 +38,7 @@ Pomodoro: {} min | Descanso: {} min | Ciclos: {}""".format(int(custom[0]),int(cu
             if i != c:
                 print("Ciclo {} Concluído! Ciclos restantes: {}".format(i,c-i))
             else:
-                print("\nTimer Concluído! Agora hidrate-se e coma algo bem gostoso")
+                print("\nTimer Concluído! Agora hidrate-se e coma algo bem gostoso!")
         break
     else:
         print("Opção inválida. Digite novamente.")
