@@ -1,0 +1,26 @@
+ALTERAÇÕES V015:
+- Melhora na visualização das opções do timer customizável;
+- Adicionadas frases mais interativas com o usuário;
+
+ALTERAÇÕES V014:
+- Adicionada função para definir a quantidade de ciclos;
+- Informa a conclusao do ciclo e o número de ciclos restantes;
+- As configurações do timer (tempo do pomodoro, descanso e nº de ciclos) 
+são mostradas antes de iniciá-lo;
+- As opções do timer (como pausar e concluir o timer) são mostradas antes de iniciá-lo; 
+- Timer agora indica quando está pausado;
+- Usuário agora deve apertar "Enter" para iniciar o timer. Qualquer outra tecla é ignorada;
+
+ALTERAÇÕES v013:
+- A função start_timer foi renomeada para run_timer;
+- A parte repetida do código do menu foi colocada na nova função start_timer, 
+a qual foi add no arquivo timer_functions;
+- Adicionado o loop do menu inicial. Erros já tratados;
+- Tempos do pomodoro customizável foram ajeitados e agora aparecem antes do input
+ do usuário;
+- Add uma verificação para o tempo do descanso do pomodoro customizável não ser maior 
+do que do pomodoro;
+
+FALTA IMPLEMENTAR:
+
+- Gerenciador de Tarefas
