@@ -7,7 +7,7 @@ def timer_setting():
     cb_lista = ['5', '10', '15', '20','25','30'] 
 
     while True:
-        print("Escolha o tempo de POMODORO:", ', '.join(cp_lista))
+        print("Escolha o tempo de POMODORO (min):", ', '.join(cp_lista))
         cp = input()
         if cp in cp_lista:
             break
@@ -15,7 +15,7 @@ def timer_setting():
             print("Opção inválida. Por favor, digite novamente.")
         
     while True:    
-        print("Escolha o tempo de DESCANSO:", ', '.join(cb_lista))        
+        print("Escolha o tempo de DESCANSO (min):", ', '.join(cb_lista))        
         cb = input()
         if cb in cb_lista and int(cb)<=int(cp):
             break
@@ -26,7 +26,7 @@ def timer_setting():
     return [cp,cb]
 
 def cycles():
-    print("Digite o número de ciclos (min:1, max:5):")
+    print("Digite o número de ciclos (mínimo: 1, máximo: 5):")
     c = 0
     while c <= 0 or c > 5:
         try:
@@ -86,9 +86,9 @@ Para iniciar o DESCANSO, aperte \"Enter\".\n""",end="\r")
             if t[0] == 'DESCANSO':
                 if m == 1 and s == 0: #Notification at 1 min left to timer ends
                     localtime = time.localtime()
-                    clock = time.strftime("%I:%M:%S", localtime) #Shows current time
+                    clock = time.strftime("%H:%M:%S", localtime) #Shows current time
                     print("Seu DESCANSO irá acabar em 1 min! (Hora: {})".format(clock))
-                    print("Aproveite para beber água ou ir ao banheiro!")
+                    print("Aproveite para beber água ou ir ao banheiro!\n")
             print("    {:02d}:{:02d}".format(m,s), end="\r")
             time.sleep(1)
             if msvcrt.kbhit(): #Invoke pause function when 'Enter' is pressed

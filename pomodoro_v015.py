@@ -11,7 +11,7 @@ print("""
 
 #Default setting
 p = ['POMODORO',2] #pomodoro
-b = ['DESCANSO',1] #break
+b = ['DESCANSO',2] #break
 
 while True:
     choice = input("\nDigite a opção desejada: ")
@@ -24,7 +24,7 @@ Pomodoro: 25 min | Descanso: 5 min | Ciclos: {}""".format(c))
             if i != c:
                 print("Ciclo {} Concluído! Ciclos restantes: {}".format(i,c-i))
             else:
-                print("Timer Concluído! Agora hidrate-se e coma algo bem gostoso!")
+                print("\nTimer Concluído! Agora hidrate-se e coma algo bem gostoso!")
         break
     elif choice == '2':
         custom = tf.timer_setting()
