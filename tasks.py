@@ -84,7 +84,11 @@ def del_task():
 
 def reports():
     df = pd.read_csv("pomodoro.csv")
-    report = df.groupby('Tarefas').Tempo_Total.agg([len,'mean', max, np.sum])
-    print(report)
-    report2 = df.groupby('Data').Tempo_Total.agg([len,'mean', max, np.sum])
-    print(report2)
+    report = df.groupby('Tarefas').Tempo_Total.agg([len, min, 'mean', max, np.sum])
+    report = report.rename(columns={'len':'Execuções','min':'Tempo mínimo (min)',
+    'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
+    print("\n",report)
+    report2 = df.groupby('Data').Tempo_Total.agg([len, min, 'mean', max, np.sum])
+    report2 = report2.rename(columns={'len':'Tarefas','min':'Tempo mínimo (min)',
+    'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
+    print("\n",report2)

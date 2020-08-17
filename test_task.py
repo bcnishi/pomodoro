@@ -8,9 +8,9 @@ tk.create()
 
 #tk.del_task()
 
-tk.edit_task()
+#tk.edit_task()
 
-#tk.reports()
+tk.reports()
 
 
 
