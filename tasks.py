@@ -15,6 +15,7 @@ def create():
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def add_task():
+    create()
     df = pd.read_csv("pomodoro.csv")
     print("Digite a tarefa a ser adicionada. A tarefa deve conter, no mínimo, 3 caracteres.")
     while True:
@@ -31,12 +32,13 @@ def add_task():
     df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def list_task():
+    create()
     print("\n")
     df = pd.read_csv("pomodoro.csv")
-    tasks = df.Tarefas.drop_duplicates()
-    print(tasks)
+    print(df)
 
 def edit_task():
+    create()
     df = pd.read_csv("pomodoro.csv")
     if len(df['Tarefas']) == 0:
         print("Não há tarefas registradas!")
@@ -63,11 +65,12 @@ def edit_task():
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def del_task():
+    create()
     df = pd.read_csv("pomodoro.csv")
     if len(df['Tarefas']) == 0:
         print("Não há tarefas registradas!")
     else:
-        print(df[['Tarefas']])
+        print(df)
         r = -1
         print("\nDigite o número da tarefa que deseja remover:")  
         while r not in range(len(df['Tarefas'])):
@@ -83,12 +86,15 @@ def del_task():
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def reports():
+    create()
     df = pd.read_csv("pomodoro.csv")
     report = df.groupby('Tarefas').Tempo_Total.agg([len, min, 'mean', max, np.sum])
     report = report.rename(columns={'len':'Execuções','min':'Tempo mínimo (min)',
     'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
+    report['Execuções'] = report['Execuções'].astype(int)
     print("\n",report)
     report2 = df.groupby('Data').Tempo_Total.agg([len, min, 'mean', max, np.sum])
     report2 = report2.rename(columns={'len':'Tarefas','min':'Tempo mínimo (min)',
     'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
+    report2['Tarefas'] = report2['Tarefas'].astype(int)
     print("\n",report2)
