@@ -8,11 +8,11 @@ def create():
         None
     else:
         df = pd.DataFrame({
-            'Tarefas': ["Estudar python","Estudar Métricas","Trabalhar no projeto da Paolla",
+            'Tarefas': ["Estudar python","Ler 1984","Trabalhar no projeto da Paolla",
             "Estudar python"],
             'Data': ["14/08/2020","14/08/2020","15/08/2020","16/08/2020"],
             'Pomodoro':[25,25,30,40],'Descanso':[5,5,10,15],'Ciclos':[1,2,3,2],
-            'Tempo_Total':[25,50,90,80]})
+            'Tempo_Total':[30,60,120,110]})
         #df['Data'] = pd.to_datetime(df['Data']) 
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
@@ -39,7 +39,6 @@ def run_task(p,b,c):
         else:
             print("Resposta inválida. Por favor, digite novamente.")
             continue
-
 
 def add_task():
     create()
@@ -114,13 +113,16 @@ def del_task():
 def reports():
     create()
     df = pd.read_csv("pomodoro.csv")
-    report = df.groupby('Tarefas').Tempo_Total.agg([len, min, 'mean', max, np.sum])
-    report = report.rename(columns={'len':'Execuções','min':'Tempo mínimo (min)',
-    'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
-    report['Execuções'] = report['Execuções'].astype(int)
-    print("\n",report)
-    report2 = df.groupby('Data').Tempo_Total.agg([len, min, 'mean', max, np.sum])
-    report2 = report2.rename(columns={'len':'Tarefas','min':'Tempo mínimo (min)',
-    'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
-    report2['Tarefas'] = report2['Tarefas'].astype(int)
-    print("\n",report2)
+    if len(df['Tarefas']) == 0:
+        print("Não há tarefas registradas!")
+    else:
+        report = df.groupby('Tarefas').Tempo_Total.agg([len, min, 'mean', max, np.sum])
+        report = report.rename(columns={'len':'Execuções','min':'Tempo mínimo (min)',
+        'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
+        report['Execuções'] = report['Execuções'].astype(int)
+        print("\n",report)
+        report2 = df.groupby('Data').Tempo_Total.agg([len, min, 'mean', max, np.sum])
+        report2 = report2.rename(columns={'len':'Tarefas','min':'Tempo mínimo (min)',
+        'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
+        report2['Tarefas'] = report2['Tarefas'].astype(int)
+        print("\n",report2)

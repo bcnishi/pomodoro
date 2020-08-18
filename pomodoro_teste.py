@@ -31,9 +31,9 @@ while True:
             choice = input("\nDigite a opção desejada: ")
             if choice == '1':
                 c = tf.cycles()
+                tk.run_task(p[1],b[1],c)
                 print("""\nConfigurações do timer:
         Pomodoro: 25 min | Descanso: 5 min | Ciclos: {}""".format(c))
-                tk.run_task(p[1],b[1],c)
                 for i in range(1,c+1):
                     tf.start_timer(p,b)
                     if i != c:
@@ -46,9 +46,9 @@ while True:
                 cp = ['POMODORO',int(custom[0])] #pomodoro
                 cb = ['DESCANSO',int(custom[1])] #break
                 c = tf.cycles()
+                tk.run_task(cp[1],cb[1],c)
                 print("""\nConfigurações do Timer:
         Pomodoro: {} min | Descanso: {} min | Ciclos: {}""".format(int(custom[0]),int(custom[1]),c))
-                tk.run_task(cp[1],cb[1],c)
                 for i in range(1,c+1):
                     tf.start_timer(cp,cb)
                     if i != c:
