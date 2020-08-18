@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+import time
 
 def create():
     if os.path.exists("pomodoro.csv"):
@@ -10,14 +11,40 @@ def create():
             'Tarefas': ["Estudar python","Estudar Métricas","Trabalhar no projeto da Paolla",
             "Estudar python"],
             'Data': ["14/08/2020","14/08/2020","15/08/2020","16/08/2020"],
-            'Pomodoro':[25,25,30,40],'Ciclo':[1,2,3,2],'Tempo_Total':[25,50,90,80]})
+            'Pomodoro':[25,25,30,40],'Descanso':[5,5,10,15],'Ciclos':[1,2,3,2],
+            'Tempo_Total':[25,50,90,80]})
         #df['Data'] = pd.to_datetime(df['Data']) 
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
+
+def run_task(p,b,c):
+    print("\nVocê deseja vincular o timer à uma tarefa? Digite \"S\" para sim ou \"N\" para não.")
+    while True:
+        a = input()
+        if a.lower() == 'n' or a.lower() == 'não' or a.lower() == 'nao':
+            break
+        elif a.lower() == 's' or a.lower() == 'sim':
+            add_task()
+            df = pd.read_csv("pomodoro.csv")
+            localtime = time.localtime()
+            d = time.strftime("%d/%m/%Y", localtime)
+            df.iloc[-1,1] = d
+            df.iloc[-1,2] = p
+            df.iloc[-1,3] = b
+            df.iloc[-1,4] = c
+            df.iloc[-1,5] = (p+b)*c
+            df['Ciclos'] = df['Ciclos'].astype(int)
+            print("\n",df)
+            df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
+            break
+        else:
+            print("Resposta inválida. Por favor, digite novamente.")
+            continue
+
 
 def add_task():
     create()
     df = pd.read_csv("pomodoro.csv")
-    print("Digite a tarefa a ser adicionada. A tarefa deve conter, no mínimo, 3 caracteres.")
+    print("\nDigite a tarefa a ser adicionada. A tarefa deve conter, no mínimo, 3 caracteres.")
     while True:
         new = input()
         if len(new) >= 3 and not new.isspace():
@@ -25,17 +52,16 @@ def add_task():
         else:
             print("Tarefa inválida. Por favor, digite novamente.")
             continue
-    df2 = pd.DataFrame({'Tarefas': [new],'Data':[np.NaN],
-                        'Pomodoro':[np.NaN],'Ciclo':[np.NaN],'Tempo_Total':[np.NaN]})
+    df2 = pd.DataFrame({'Tarefas': [new],'Data':[np.NaN],'Pomodoro':[np.NaN],
+                        'Descanso':[np.NaN],'Ciclos':[np.NaN],'Tempo_Total':[np.NaN]})
     df = df.append(df2, ignore_index = True)
-    print(df)
+    #print("\n",df)
     df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def list_task():
     create()
-    print("\n")
     df = pd.read_csv("pomodoro.csv")
-    print(df)
+    print("\n",df)
 
 def edit_task():
     create()
@@ -43,8 +69,8 @@ def edit_task():
     if len(df['Tarefas']) == 0:
         print("Não há tarefas registradas!")
     else:
-        print(df['Tarefas'])
-        print("Digite o número da tarefa a ser editada: ")
+        print("\n",df)
+        print("\nDigite o número da tarefa a ser editada: ")
         r =-1
         while r not in range(len(df['Tarefas'])):
                 try:
@@ -60,8 +86,9 @@ def edit_task():
             else:
                 print("Tarefa inválida. Por favor, digite novamente.")
                 continue
-        df['Tarefas'] = df['Tarefas'].replace(df.iloc[r,0],e)
-        print(df)
+        #df['Tarefas'] = df['Tarefas'].replace(df.iloc[r,0],e) replace all tasks with same name
+        df.iloc[r,0] = e
+        print("\n",df)
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def del_task():
@@ -70,7 +97,7 @@ def del_task():
     if len(df['Tarefas']) == 0:
         print("Não há tarefas registradas!")
     else:
-        print(df)
+        print("\n",df)
         r = -1
         print("\nDigite o número da tarefa que deseja remover:")  
         while r not in range(len(df['Tarefas'])):
@@ -79,10 +106,9 @@ def del_task():
             except:
                 print("Opção inválida. Por favor, digite novamente.")
                 continue
-            print("\n")
         df = df.drop(r)
         df = df.reset_index(drop=True)
-        print(df)
+        print("\n",df)
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def reports():

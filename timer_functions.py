@@ -26,7 +26,7 @@ def timer_setting():
     return [cp,cb]
 
 def cycles():
-    print("Digite o número de ciclos (mínimo: 1, máximo: 5):")
+    print("Escolha o número de ciclos (mínimo: 1, máximo: 5):")
     c = 0
     while c <= 0 or c > 5:
         try:
@@ -63,13 +63,13 @@ def pause():
 def run_timer(t):
     """Timer run function"""
     print("""
-    ========================================
-    =           OPÇÕES DO TIMER            =
-    =                                      =
-    =           Pausar (Espaço)            =
-    =  Concluir pomodoro/descanso (Crtl+C) =
-    =                                      =
-    ========================================""")
+========================================
+=           OPÇÕES DO TIMER            =
+=                                      =
+=           Pausar (Espaço)            =
+=  Concluir Pomodoro/Descanso (Ctrl+C) =
+=                                      =
+========================================""")
     if t[0] == 'POMODORO':
         print("""\nDesconecte-se das redes sociais e concentre-se! 
 Quando estiver pronto(a), aperte \"Enter\" para iniciar o POMODORO.\n""",end="\r")
