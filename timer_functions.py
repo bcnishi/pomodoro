@@ -88,7 +88,7 @@ Para iniciar o DESCANSO, aperte \"Enter\".\n""",end="\r")
                     localtime = time.localtime()
                     clock = time.strftime("%H:%M:%S", localtime) #Shows current time
                     print("Seu DESCANSO irá acabar em 1 min! (Hora: {})".format(clock))
-                    print("Aproveite para beber água ou ir ao banheiro!\n")
+                    print("Aproveite para beber água \U0001F6B0 ou ir ao banheiro \U0001F6BE!\n")
             print("    {:02d}:{:02d}".format(m,s), end="\r")
             time.sleep(1)
             if msvcrt.kbhit(): #Invoke pause function when 'Enter' is pressed

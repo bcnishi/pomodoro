@@ -4,7 +4,7 @@ import tasks as tk
 #Main Menu
 print("""
 =================================
-=         MENU PRINCIPAL        =
+=        MENU PRINCIPAL \U0001F345      =
 =                               =
 =           Timer (1)           =
 =   Gerenciador de Tarefas (2)  =
@@ -18,7 +18,7 @@ while True:
 #Timer Menu
         print("""
 =================================
-=         MENU DO TIMER         =
+=         MENU DO TIMER \u23F0      =
 =                               =
 =   Iniciar Timer Padrão (1)    =
 =  Criar Timer Customizável (2) =
@@ -39,7 +39,7 @@ while True:
                     if i != c:
                         print("\nCiclo {} Concluído! Ciclos restantes: {}".format(i,c-i))
                     else:
-                        print("\nTimer Concluído! Agora hidrate-se e coma algo bem gostoso!")
+                        print("\nTimer Concluído! Agora hidrate-se \U0001F6B0 e coma algo bem gostoso \U0001F355!")
                 break
             elif choice == '2': #Custom setting
                 custom = tf.timer_setting()
@@ -54,7 +54,7 @@ while True:
                     if i != c:
                         print("\nCiclo {} Concluído! Ciclos restantes: {}".format(i,c-i))
                     else:
-                        print("\nTimer Concluído! Agora hidrate-se e coma algo bem gostoso!")
+                        print("\nTimer Concluído! Agora hidrate-se \U0001F6B0 e coma algo bem gostoso \U0001F355!")
                 break
             else:
                 print("Opção inválida. Digite novamente.")
@@ -64,7 +64,7 @@ while True:
 #Task Menu
         print("""
 =================================
-=        MENU DE TAREFAS        =
+=        MENU DE TAREFAS \U0001F4D3     =
 =                               =
 =      Adicionar Tarefa (1)     =
 =       Listar Tarefas (2)      =
@@ -72,6 +72,7 @@ while True:
 =       Remover Tarefa (4)      = 
 =                               =
 ================================= """)
+
         while choice not in range(1,5):
             try:
                 choice = int(input("\nDigite a opção desejada: "))
