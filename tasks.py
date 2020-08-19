@@ -2,8 +2,12 @@ import pandas as pd
 import numpy as np
 import os
 import time
+import matplotlib
+import matplotlib.pyplot as plt
 
 def create():
+    """Verify if the csv archive already exists, if so do nothing.
+    If the archive doesn't exist, create the dataframe and write in a csv archive"""
     if os.path.exists("pomodoro.csv"):
         None
     else:
@@ -13,7 +17,7 @@ def create():
             'Data': ["14/08/2020","14/08/2020","15/08/2020","16/08/2020"],
             'Pomodoro':[25,25,30,40],'Descanso':[5,5,10,15],'Ciclos':[1,2,3,2],
             'Tempo_Total':[30,60,120,110]})
-        #df['Data'] = pd.to_datetime(df['Data']) 
+        #df['Data'] = pd.to_datetime(df['Data'])
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def run_task(p,b,c):
@@ -26,13 +30,12 @@ def run_task(p,b,c):
             add_task()
             df = pd.read_csv("pomodoro.csv")
             localtime = time.localtime()
-            d = time.strftime("%d/%m/%Y", localtime)
-            df.iloc[-1,1] = d
-            df.iloc[-1,2] = p
-            df.iloc[-1,3] = b
-            df.iloc[-1,4] = c
-            df.iloc[-1,5] = (p+b)*c
-            df['Ciclos'] = df['Ciclos'].astype(int)
+            d = time.strftime("%d/%m/%Y", localtime) #gets today's date
+            df.iloc[-1,1] = d #today's date
+            df.iloc[-1,2] = p #pomodoro value
+            df.iloc[-1,3] = b #break value
+            df.iloc[-1,4] = c #cycle value
+            df.iloc[-1,5] = (p+b)*c #total time
             print("\n",df)
             df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
             break
@@ -51,10 +54,11 @@ def add_task():
         else:
             print("Tarefa inválida. Por favor, digite novamente.")
             continue
-    df2 = pd.DataFrame({'Tarefas': [new],'Data':[np.NaN],'Pomodoro':[np.NaN],
-                        'Descanso':[np.NaN],'Ciclos':[np.NaN],'Tempo_Total':[np.NaN]})
+    df2 = pd.DataFrame({'Tarefas': [new],'Data':[np.NaN],'Pomodoro':[0],
+                        'Descanso':[0],'Ciclos':[0],'Tempo_Total':[0]})
     df = df.append(df2, ignore_index = True)
     #print("\n",df)
+    df[['Pomodoro','Descanso','Ciclos']] = df[['Pomodoro','Descanso','Ciclos']].astype(int)
     df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def list_task():
@@ -71,7 +75,7 @@ def edit_task():
         print("\n",df)
         print("\nDigite o número da tarefa a ser editada: ")
         r =-1
-        while r not in range(len(df['Tarefas'])):
+        while r not in range(len(df['Tarefas'])): #Verify if task's index given by user is valid
                 try:
                     r = int(input())
                 except:
@@ -86,7 +90,7 @@ def edit_task():
                 print("Tarefa inválida. Por favor, digite novamente.")
                 continue
         #df['Tarefas'] = df['Tarefas'].replace(df.iloc[r,0],e) replace all tasks with same name
-        df.iloc[r,0] = e
+        df.iloc[r,0] = e #assign the new task name
         print("\n",df)
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
@@ -117,12 +121,24 @@ def reports():
         print("Não há tarefas registradas!")
     else:
         report = df.groupby('Tarefas').Tempo_Total.agg([len, min, 'mean', max, np.sum])
+        #convert float values to int
+        report[['len','min','max']] = report[['len','min','max']].fillna(0.0).astype(int)
+        #convert minutes to HH:MM notation
+        report['sum'] = pd.to_datetime(report['sum'], unit='m').dt.strftime('%H:%M')
+        #rename columns
         report = report.rename(columns={'len':'Execuções','min':'Tempo mínimo (min)',
-        'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
-        report['Execuções'] = report['Execuções'].astype(int)
+        'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (H:M)'})
         print("\n",report)
+    
         report2 = df.groupby('Data').Tempo_Total.agg([len, min, 'mean', max, np.sum])
+        #sort by descending date
+        report2 = report2.sort_values('Data', ascending=False)
+        #convert float values to int
+        report2[['len','min','max']] = report2[['len','min','max']].fillna(0.0).astype(int)
+        #convert minutes to HH:MM notation
+        report2['sum'] = pd.to_datetime(report2['sum'], unit='m').dt.strftime('%H:%M')
+        #rename columns
         report2 = report2.rename(columns={'len':'Tarefas','min':'Tempo mínimo (min)',
-        'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (min)'})
-        report2['Tarefas'] = report2['Tarefas'].astype(int)
+        'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (H:M)'})
         print("\n",report2)
+        

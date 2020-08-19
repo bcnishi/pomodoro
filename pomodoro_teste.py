@@ -1,9 +1,10 @@
 import timer_functions as tf
 import tasks as tk
 
+#Main Menu
 print("""
 =================================
-=             MENU              =
+=         MENU PRINCIPAL        =
 =                               =
 =           Timer (1)           =
 =   Gerenciador de Tarefas (2)  =
@@ -14,6 +15,7 @@ print("""
 while True:
     choice = input("\nDigite a opção desejada: ")
     if choice == '1':
+#Timer Menu
         print("""
 =================================
 =         MENU DO TIMER         =
@@ -23,13 +25,11 @@ while True:
 =                               =
 ================================= """)
 
-        #Default setting
-        p = ['POMODORO',2] #pomodoro
-        b = ['DESCANSO',2] #break
-
         while True:
             choice = input("\nDigite a opção desejada: ")
-            if choice == '1':
+            if choice == '1':#Default setting                               
+                p = ['POMODORO',25] #pomodoro
+                b = ['DESCANSO',5] #break
                 c = tf.cycles()
                 tk.run_task(p[1],b[1],c)
                 print("""\nConfigurações do timer:
@@ -41,7 +41,7 @@ while True:
                     else:
                         print("\nTimer Concluído! Agora hidrate-se e coma algo bem gostoso!")
                 break
-            elif choice == '2':
+            elif choice == '2': #Custom setting
                 custom = tf.timer_setting()
                 cp = ['POMODORO',int(custom[0])] #pomodoro
                 cb = ['DESCANSO',int(custom[1])] #break
@@ -61,31 +61,30 @@ while True:
                 continue
         break
     elif choice == '2':
+#Task Menu
         print("""
 =================================
 =        MENU DE TAREFAS        =
 =                               =
-=       Adicionar Tarefa (1)    =
+=      Adicionar Tarefa (1)     =
 =       Listar Tarefas (2)      =
 =        Editar Tarefa (3)      =
 =       Remover Tarefa (4)      = 
 =                               =
 ================================= """)
-        choice = -1
-        menu = ['1','2','3','4']
-        while choice not in menu:
+        while choice not in range(1,5):
             try:
-                choice = input("\nDigite a opção desejada: ")
+                choice = int(input("\nDigite a opção desejada: "))
             except:
                 print("Opção inválida. Por favor, digite novamente.")
                 continue            
-        if choice == '1':
+        if choice == 1:
             tk.add_task()
-        elif choice == '2':
+        elif choice == 2:
             tk.list_task()
-        elif choice == '3':
+        elif choice == 3:
             tk.edit_task()
-        elif choice == '4':
+        elif choice == 4:
             tk.del_task()
         break
     elif choice == '3':
