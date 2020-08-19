@@ -1,6 +1,6 @@
 # `Pomodoro Doro` :tomato:
 
-![](https://github.com/bcnishi/pomodoro/tree/master/images/pomodoro_logo.png)
+![logo](https://github.com/bcnishi/pomodoro/tree/master/images/pomodoro_logo.png)
 
 Pomodoro Doro is a simple and helpful pomodoro timer developed to assist you in time management and task execution. 
 The Pomodoro Technique was created by the italian Francesco Cirillo, in the late 1980s, for a more productive way to work  and study. 
