@@ -130,31 +130,9 @@ def reports():
         'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (H:M)'})
         print("\n",report)
 
-        plt.style.use('seaborn')
-        fig, ax = plt.subplots()
-
-        tasks = report.index
-        y_pos = np.arange(len(tasks))
-        y = df.groupby('Tarefas').Tempo_Total.sum()
-
-        formatter = matplotlib.ticker.FuncFormatter(lambda m,x: pd.to_datetime(m,unit='m').strftime('%H:%M'))
-
-        ax.xaxis.set_major_formatter(formatter)
-
-        ax.barh(y_pos, y, align='center')
-        ax.set_yticks(y_pos)
-        ax.set_yticklabels(tasks)
-        ax.invert_yaxis()  # labels read top-to-bottom
-        ax.set_xlabel('Hours',labelpad=10)
-        ax.set_title('Time per Task')
-        #for i, v in enumerate(y):
-        #    ax.text(v + 2, i + .05, str(v), color='black')
-        plt.show()
-        fig.tight_layout()
-
         report2 = df.groupby('Data').Tempo_Total.agg([len, min, 'mean', max, np.sum])
         #sort by descending date
-        report2 = report2.sort_values('Data', ascending=False)
+        #report2 = report2.sort_values('Data', ascending=False)
         #convert float values to int
         report2[['len','min','max']] = report2[['len','min','max']].fillna(0.0).astype(int)
         #convert minutes to HH:MM notation
@@ -163,4 +141,52 @@ def reports():
         report2 = report2.rename(columns={'len':'Tarefas','min':'Tempo mínimo (min)',
         'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (H:M)'})
         print("\n",report2)
-        
+
+        plt.style.use('ggplot') ##ggplot theme
+
+        tasks = report.index
+        p = df.groupby('Tarefas').Pomodoro.sum()
+        b = df.groupby('Tarefas').Descanso.sum()
+
+        x = np.arange(len(tasks))  # the label locations
+        width = 0.35  # the width of the bars
+
+        fig, (ax1, ax2) = plt.subplots(1, 2,figsize=(15, 6))
+        fig.set_tight_layout({'pad':3,'h_pad':1.5})
+
+        ax1.barh(x - width/2, p, width, label='Pomodoro',color='#2c6fbb')
+        ax1.barh(x + width/2, b, width, label='Break',color='#e74c3c')
+
+        #convert minutes to HH:MM notation
+        formatter = matplotlib.ticker.FuncFormatter(lambda m,x: pd.to_datetime(m,unit='m').strftime('%H:%M'))
+        ax1.xaxis.set_major_formatter(formatter)
+
+        ax1.set_yticks(x)
+        ax1.set_yticklabels(tasks)
+        ax1.invert_yaxis()
+        ax1.set_xlabel('Hours',labelpad=10)
+        ax1.set_title('Time per Task',fontsize=14,pad=10)
+        ax1.legend(prop={'size': 10})
+
+        rep2 = report2.tail(7)
+        dates = rep2.index
+        p2 = df.groupby('Data').Pomodoro.sum()
+        p2 = p2.tail(7)
+        b2 = df.groupby('Data').Descanso.sum()
+        b2 = b2.tail(7)
+        x2 = np.arange(len(dates))  # the label locations
+
+        ax2.bar(x2 - width/2, p2, width, label='Pomodoro',color='#2c6fbb')
+        ax2.bar(x2 + width/2, b2, width, label='Break',color='#e74c3c')
+
+        # Add some text for labels, title and custom x-axis tick labels, etc.
+        ax2.xaxis.set_major_formatter(formatter)
+
+        ax2.set_xticks(x2)
+        ax2.set_xticklabels(dates)
+        ax2.set_ylabel('Hours',labelpad=10)
+        ax2.set_title('Time per Day',fontsize=14,pad=10)
+        ax2.legend(prop={'size': 10})
+
+        fig.tight_layout()
+        plt.show()
