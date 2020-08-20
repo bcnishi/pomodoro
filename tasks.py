@@ -129,7 +129,29 @@ def reports():
         report = report.rename(columns={'len':'Execuções','min':'Tempo mínimo (min)',
         'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (H:M)'})
         print("\n",report)
-    
+
+        plt.style.use('seaborn')
+        fig, ax = plt.subplots()
+
+        tasks = report.index
+        y_pos = np.arange(len(tasks))
+        y = df.groupby('Tarefas').Tempo_Total.sum()
+
+        formatter = matplotlib.ticker.FuncFormatter(lambda m,x: pd.to_datetime(m,unit='m').strftime('%H:%M'))
+
+        ax.xaxis.set_major_formatter(formatter)
+
+        ax.barh(y_pos, y, align='center')
+        ax.set_yticks(y_pos)
+        ax.set_yticklabels(tasks)
+        ax.invert_yaxis()  # labels read top-to-bottom
+        ax.set_xlabel('Hours',labelpad=10)
+        ax.set_title('Time per Task')
+        #for i, v in enumerate(y):
+        #    ax.text(v + 2, i + .05, str(v), color='black')
+        plt.show()
+        fig.tight_layout()
+
         report2 = df.groupby('Data').Tempo_Total.agg([len, min, 'mean', max, np.sum])
         #sort by descending date
         report2 = report2.sort_values('Data', ascending=False)
