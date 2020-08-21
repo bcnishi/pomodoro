@@ -1,8 +1,6 @@
 import timer_functions as tf
 import tasks as tk
 
-#Main Menu
-
 menu = ("""
 =================================
 =         POMODORO DORO \U0001F345      =
@@ -15,7 +13,7 @@ menu = ("""
 ================================= """)
 
 while True:
-    print(menu)
+    print(menu) #Main Menu
     choice = input("\nDigite a opção desejada: ")
     if choice == '1': #Timer Menu
         print("""

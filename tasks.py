@@ -17,7 +17,6 @@ def create():
             'Data': ["14/08/2020","14/08/2020","15/08/2020","16/08/2020"],
             'Pomodoro':[25,25,30,40],'Descanso':[5,5,10,15],'Ciclos':[1,2,3,2],
             'Tempo_Programado':[30,60,120,110]})
-        #df['Data'] = pd.to_datetime(df['Data'])
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
 def run_task(p,b,c):
@@ -63,7 +62,10 @@ def add_task():
 def list_task():
     create()
     df = pd.read_csv("pomodoro.csv")
-    print("\n",df)
+    if len(df['Tarefas']) == 0:
+        print("Não há tarefas registradas!")
+    else:
+        print("\n",df)
 
 def edit_task():
     create()
