@@ -21,6 +21,7 @@ Each interval is known as a pomodoro, from the Italian word for 'tomato'.
 * Customizable timer intervals to suit your preference
 * Audio notification at the end of a timer period
 * Visualization of statistics
+* Windows only
 
 ## Authors :rainbow:
 
