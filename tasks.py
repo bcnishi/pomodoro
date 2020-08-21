@@ -16,7 +16,7 @@ def create():
             "Estudar python"],
             'Data': ["14/08/2020","14/08/2020","15/08/2020","16/08/2020"],
             'Pomodoro':[25,25,30,40],'Descanso':[5,5,10,15],'Ciclos':[1,2,3,2],
-            'Tempo_Total':[30,60,120,110]})
+            'Tempo_Programado':[30,60,120,110]})
         #df['Data'] = pd.to_datetime(df['Data'])
         df.to_csv("pomodoro.csv",index=False,encoding='utf-8')
 
@@ -55,7 +55,7 @@ def add_task():
             print("Tarefa inválida. Por favor, digite novamente.")
             continue
     df2 = pd.DataFrame({'Tarefas': [new],'Data':[np.NaN],'Pomodoro':[0],
-                        'Descanso':[0],'Ciclos':[0],'Tempo_Total':[0]})
+                        'Descanso':[0],'Ciclos':[0],'Tempo_Programado':[0]})
     df = df.append(df2, ignore_index = True)
     #print("\n",df)
     df[['Pomodoro','Descanso','Ciclos']] = df[['Pomodoro','Descanso','Ciclos']].astype(int)
@@ -120,7 +120,7 @@ def reports():
     if len(df['Tarefas']) == 0:
         print("Não há tarefas registradas!")
     else:
-        report = df.groupby('Tarefas').Tempo_Total.agg([len, min, 'mean', max, np.sum])
+        report = df.groupby('Tarefas').Tempo_Programado.agg([len, min, 'mean', max, np.sum])
         #convert float values to int
         report[['len','min','max']] = report[['len','min','max']].fillna(0.0).astype(int)
         #convert minutes to HH:MM notation
@@ -130,7 +130,7 @@ def reports():
         'mean':'Tempo Médio (min)','max':'Tempo Máximo (min)','sum':'Total (H:M)'})
         print("\n",report)
 
-        report2 = df.groupby('Data').Tempo_Total.agg([len, min, 'mean', max, np.sum])
+        report2 = df.groupby('Data').Tempo_Programado.agg([len, min, 'mean', max, np.sum])
         #sort by descending date
         #report2 = report2.sort_values('Data', ascending=False)
         #convert float values to int
@@ -155,7 +155,7 @@ def reports():
         fig.set_tight_layout({'pad':3,'h_pad':1.5})
 
         ax1.barh(x - width/2, p, width, label='Pomodoro',color='#2c6fbb')
-        ax1.barh(x + width/2, b, width, label='Break',color='#e74c3c')
+        ax1.barh(x + width/2, b, width, label='Descanso',color='#e74c3c')
 
         #convert minutes to HH:MM notation
         formatter = matplotlib.ticker.FuncFormatter(lambda m,x: pd.to_datetime(m,unit='m').strftime('%H:%M'))
@@ -164,8 +164,8 @@ def reports():
         ax1.set_yticks(x)
         ax1.set_yticklabels(tasks)
         ax1.invert_yaxis()
-        ax1.set_xlabel('Hours',labelpad=10)
-        ax1.set_title('Time per Task',fontsize=14,pad=10)
+        ax1.set_xlabel('Horas',labelpad=10)
+        ax1.set_title('Tempo por Tarefa',fontsize=14,pad=10)
         ax1.legend(prop={'size': 10})
 
         rep2 = report2.tail(7)
@@ -177,15 +177,15 @@ def reports():
         x2 = np.arange(len(dates))  # the label locations
 
         ax2.bar(x2 - width/2, p2, width, label='Pomodoro',color='#2c6fbb')
-        ax2.bar(x2 + width/2, b2, width, label='Break',color='#e74c3c')
+        ax2.bar(x2 + width/2, b2, width, label='Descanso',color='#e74c3c')
 
         # Add some text for labels, title and custom x-axis tick labels, etc.
-        ax2.xaxis.set_major_formatter(formatter)
+        ax2.yaxis.set_major_formatter(formatter)
 
         ax2.set_xticks(x2)
         ax2.set_xticklabels(dates)
-        ax2.set_ylabel('Hours',labelpad=10)
-        ax2.set_title('Time per Day',fontsize=14,pad=10)
+        ax2.set_ylabel('Horas',labelpad=10)
+        ax2.set_title('Tempo por Dia',fontsize=14,pad=10)
         ax2.legend(prop={'size': 10})
 
         fig.tight_layout()

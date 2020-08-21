@@ -2,23 +2,26 @@ import timer_functions as tf
 import tasks as tk
 
 #Main Menu
-print("""
+
+menu = ("""
 =================================
-=        MENU PRINCIPAL \U0001F345      =
+=         POMODORO DORO \U0001F345      =
 =                               =
 =           Timer (1)           =
 =   Gerenciador de Tarefas (2)  =
 =     Relatório de Dados (3)    =
+=            Sair (4)           =
 =                               =
 ================================= """)
 
 while True:
+    print(menu)
     choice = input("\nDigite a opção desejada: ")
     if choice == '1':
 #Timer Menu
         print("""
 =================================
-=         MENU DO TIMER \u23F0      =
+=            TIMER \u23F0           =
 =                               =
 =   Iniciar Timer Padrão (1)    =
 =  Criar Timer Customizável (2) =
@@ -59,17 +62,15 @@ while True:
             else:
                 print("Opção inválida. Digite novamente.")
                 continue
-        break
     elif choice == '2':
 #Task Menu
         print("""
 =================================
-=        MENU DE TAREFAS \U0001F4D3     =
+=      TAREFAS REGISTRADAS \U0001F4D3   =
 =                               =
-=      Adicionar Tarefa (1)     =
-=       Listar Tarefas (2)      =
-=        Editar Tarefa (3)      =
-=       Remover Tarefa (4)      = 
+=       Listar Tarefas (1)      =
+=        Editar Tarefa (2)      =
+=       Remover Tarefa (3)      = 
 =                               =
 ================================= """)
 
@@ -80,16 +81,15 @@ while True:
                 print("Opção inválida. Por favor, digite novamente.")
                 continue            
         if choice == 1:
-            tk.add_task()
-        elif choice == 2:
             tk.list_task()
-        elif choice == 3:
+        elif choice == 2:
             tk.edit_task()
-        elif choice == 4:
+        elif choice == 3:
             tk.del_task()
-        break
     elif choice == '3':
         tk.reports()
+    elif choice == '4':
+        print("\nAdorei passar esse tempo com você! Até a próxima! \U0001F60A")
         break
     else:
         print("Opção inválida. Digite novamente.")
