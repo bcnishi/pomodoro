@@ -45,7 +45,7 @@ def run_task(p,b,c):
 def add_task():
     create()
     df = pd.read_csv("pomodoro.csv")
-    print("\nDigite a tarefa a ser adicionada. A tarefa deve conter, no mínimo, 3 caracteres.")
+    print("\nAtribua um nome à tarefa a ser adicionada. O nome da tarefa deve conter, no mínimo, 3 caracteres.")
     while True:
         new = input()
         if len(new) >= 3 and not new.isspace():
