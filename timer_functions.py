@@ -42,12 +42,12 @@ def start_timer(p,b):
     try: 
         run_timer(p)       
     except KeyboardInterrupt: #Ends the timer when CTRL+C is pressed
-        print("\a") #Sound Alert (Need to test if works on macOS)
+        print("\a") #Sound Alert
         pass
     try: 
         run_timer(b)
     except KeyboardInterrupt: #Ends the timer when CTRL+C is pressed
-        print("\a") #Sound Alert (Need to test if works on macOS)    
+        print("\a") #Sound Alert   
         pass
 
 def pause():
@@ -64,7 +64,7 @@ def run_timer(t):
     """Timer run function"""
     print("""
 ========================================
-=           OPÇÕES DO TIMER            =
+=           OPÇÕES DO TIMER \u23F0         =
 =                                      =
 =           Pausar (Espaço)            =
 =  Concluir Pomodoro/Descanso (Ctrl+C) =
@@ -94,4 +94,4 @@ Para iniciar o DESCANSO, aperte \"Enter\".\n""",end="\r")
             if msvcrt.kbhit(): #Invoke pause function when 'Enter' is pressed
                 if ord(msvcrt.getch()) == 32:
                     pause()    
-    print("\a") #Sound Alert (Need to test if works on macOS)
+    print("\a") #Sound Alert

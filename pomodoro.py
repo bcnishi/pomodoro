@@ -8,7 +8,7 @@ menu = ("""
 =         POMODORO DORO \U0001F345      =
 =                               =
 =           Timer (1)           =
-=   Gerenciador de Tarefas (2)  =
+=     Tarefas Registradas (2)   =
 =     Relatório de Dados (3)    =
 =            Sair (4)           =
 =                               =
@@ -17,8 +17,7 @@ menu = ("""
 while True:
     print(menu)
     choice = input("\nDigite a opção desejada: ")
-    if choice == '1':
-#Timer Menu
+    if choice == '1': #Timer Menu
         print("""
 =================================
 =            TIMER \u23F0           =
@@ -62,8 +61,7 @@ while True:
             else:
                 print("Opção inválida. Digite novamente.")
                 continue
-    elif choice == '2':
-#Task Menu
+    elif choice == '2': #Task Menu
         print("""
 =================================
 =      TAREFAS REGISTRADAS \U0001F4D3   =
@@ -77,6 +75,8 @@ while True:
         while choice not in range(1,5):
             try:
                 choice = int(input("\nDigite a opção desejada: "))
+                if choice not in range(1,5):
+                    print("Opção inválida. Por favor, digite novamente.")
             except:
                 print("Opção inválida. Por favor, digite novamente.")
                 continue            
@@ -86,10 +86,31 @@ while True:
             tk.edit_task()
         elif choice == 3:
             tk.del_task()
-    elif choice == '3':
+    elif choice == '3': #Reports
         tk.reports()
-    elif choice == '4':
-        print("\nAdorei passar esse tempo com você! Até a próxima! \U0001F60A")
+    elif choice == '4': #Exit
+        print("""\nAdorei passar esse tempo com você! Até a próxima! \U0001F60A                                                                                                  
+                                ((                              
+                              ((                                               
+                            (((                                 
+                             (((                                  
+                               ((                                                                          
+                (((((((((((((((((((((((((((((((                                                             
+              %%%%%%%%%%%%(((((((((((((%%%%%%%((((                                                          
+           %%%%%%%%%%%%%%((((((((((((((((((%%%%###%%                                                       
+         %%%%%%%%%%%%(((((%%%%((((%%%%%((((%%%%#####%                                                     
+       %%%%%%%%%%%%%(((%%%%%%(((%%%%%%%%%(((%%%%######%                                                    
+      %%%%%%%%%%%%%(%%%%%%%%%%((%%%%%%%%%%(%%%%%%######%                                                  
+     %%%%%%%%%%%%%%%%%%%%%%%%%(%%%%%%%%%%%%%%%%%%%######%                                                  
+     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%#####%                                                 
+     %%%%%%%%             OBRIGADO!!             %%%####%                                                 
+     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                                 
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                              
+       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                            
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                                 
+         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                                    
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                                        
+               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% """)
         break
     else:
         print("Opção inválida. Digite novamente.")
